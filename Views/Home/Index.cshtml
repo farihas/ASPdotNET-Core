@@ -1,0 +1,44 @@
+﻿@using DojodachiApp.Controllers
+@model Dachi
+@{
+    ViewData["Title"] = "Home Page";
+}
+<br>
+<h2>*DOJODACHI*</h2>
+<nav>
+    <h3>Fullness: @Model.Fullness . Happiness: @Model.Happiness . Meals: @Model.Meals . Energy: @Model.Energy</h3>
+</nav>
+
+
+@{
+    if (ViewBag.State != GameState.Playing)
+    {
+        if (ViewBag.State == GameState.Win)
+        {
+            <strong><p style="color:forestgreen">@ViewBag.Message</p></strong>
+            <a href='@Url.Action("image", "Home")'><img src='@Url.Content("images/Happy.png")'/><img></a>
+            
+        }
+        else
+        {
+            <strong><p style="color:crimson">@ViewBag.Message</p></strong>
+            <a href='@Url.Action("image", "Home")'><img src='@Url.Content("images/Sad.png")'/><img></a>
+        }
+
+        <br/>
+        <strong><button onclick="window.location.href = 'new'">New Game?</button></strong>
+    }
+    else
+    {
+        <!-- After every button press, display a message showing how the Dojodachi reacted -->
+        <p style="color:darkgreen">@TempData["Message"]</p> 
+        <!-- After each button press, display an image reflecting the Dojodachi's reaction (Happy, Sad, etc...) -->        
+        <strong><button onclick="window.location.href = 'feed'">Feed</button></strong>
+        <strong><button onclick="window.location.href = 'play'">Play</button></strong>
+        <strong><button onclick="window.location.href = 'work'">Work</button></strong>
+        <strong><button onclick="window.location.href = 'sleep'">Sleep</button></strong>
+        
+        <a href='@Url.Action("image", "Home")'><img width=550 height=550 src='@Url.Content("images/Content.png")'/><img></a>     
+    }
+}
+<p></p>
